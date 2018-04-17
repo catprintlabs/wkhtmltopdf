@@ -103,28 +103,28 @@ QT_CONFIG = {
         '-qt-xcb',
         '-silent',                  # perform a silent build
         '-xrender',                 # xrender support is required
-        '-largefile',
+        '-largefile',  #disavled for catprint build
         '-iconv',                   # iconv support is required for text codecs
         '-openssl',                 # load OpenSSL binaries at runtime
         '-no-rpath',
         '-no-dbus',
-        '-no-nis',
+        '-no-nis',     #disabled for catprint build
         '-no-cups',
         '-no-pch',
-        '-no-gtkstyle',
+        '-no-gtkstyle',    #disabled for catprint build
         '-no-sm',
-        '-no-xshape',
-        '-no-xinerama',
-        '-no-xcursor',
-        '-no-xfixes',
-        '-no-xrandr',
-        '-no-mitshm',
-        '-no-xinput',
+        '-no-xshape',  #disabled for catprint build
+        '-no-xinerama',        #disabled for catprint build
+        '-no-xcursor',         #disabled for catprint build
+        '-no-xfixes',      #disabled for catprint build
+        '-no-xrandr',      #disabled for catprint build
+        '-no-mitshm',      #disabled for catprint build
+        '-no-xinput',      #disabled for catprint build
         '-no-xkb',
         '-no-glib',
-        '-no-openvg',
-        '-no-xsync',
-        '-no-audio-backend',
+        '-no-openvg',      #disabled for catprint build
+        '-no-xsync',       #disabled for catprint build
+        '-no-audio-backend',   #disabled for catprint build
         '-no-sse3',
         '-no-ssse3',
         '-no-sse4.1',
@@ -145,7 +145,7 @@ QT_CONFIG = {
         '-no-dwarf2',
         '-xrender',                 # xrender support is required
         '-openssl',                 # load OpenSSL binaries at runtime
-        '-largefile',
+        #'-largefile',
         '-no-rpath'
     ]
 }

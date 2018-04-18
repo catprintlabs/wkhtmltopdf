@@ -739,7 +739,7 @@ def build_setup_schroot(config, basedir):
     install_packages('git', 'debootstrap', 'schroot', 'rinse', 'debian-archive-keyring',
                      'ruby', 'ruby-dev', 'libffi-dev', 'tar', 'xz-utils')
     if not get_output('which', 'fpm'):
-        shell('gem install -V fpm -N')
+        shell('gem install -V fpm')
 
     login  = os.environ.get('SUDO_USER') or get_output('logname')
     target = config.split('-', 2)[2]

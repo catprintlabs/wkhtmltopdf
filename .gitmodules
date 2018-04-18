@@ -10,4 +10,4 @@
 	url = https://github.com/qtproject/qtxmlpatterns.git
 [submodule "qt/qtwebkit"]
 	path = qt/qtwebkit
-	url = https://github.com/wkhtmltopdf/qtwebkit.git
+	url = https://github.com/catprintlabs/qtwebkit.git

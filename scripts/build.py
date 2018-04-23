@@ -1,3 +1,5 @@
+import code
+
 #!/usr/bin/env python
 #
 # Copyright 2014 wkhtmltopdf authors
@@ -702,6 +704,19 @@ def check_running_on_debian():
     if os.geteuid() != 0:
         error('This script must be run as root.')
 
+# need to define this to make sure that we do not apt-get install an old version of ruby
+# incompatable with fpm
+def install_ruby():
+    # first lets check if rvm is insalled
+    if get_output('rvm', '--version'):
+        shell('rvm install ruby 2.3.0')
+        shell('rvm use ruby 2.3.0')
+        # then we set the current version of rvm
+    else:
+        error('please install rvm globally before continuing')
+
+
+
 def install_packages(*names):
     inst = get_output('dpkg-query', '--show', '--showformat', '${Package}\n').split('\n')
     miss = [name for name in names if name not in inst]
@@ -736,8 +751,14 @@ def check_setup_schroot(config):
         error('Unable to determine the login for which schroot access is to be given.')
 
 def build_setup_schroot(config, basedir):
+    # have to make that if this project needs the ruby headers that it can find them
+    install_ruby()
+    # install_packages('git', 'debootstrap', 'schroot', 'rinse', 'debian-archive-keyring',
+    #                  'ruby', 'ruby-dev', 'libffi-dev', 'tar', 'xz-utils')
     install_packages('git', 'debootstrap', 'schroot', 'rinse', 'debian-archive-keyring',
-                     'ruby', 'ruby-dev', 'libffi-dev', 'tar', 'xz-utils')
+                    'libffi-dev', 'tar', 'xz-utils')
+
+    #code.interact(local=dict(globals(), **locals()))
     if not get_output('which', 'fpm'):
         shell('gem install -V fpm')
 
@@ -745,6 +766,7 @@ def build_setup_schroot(config, basedir):
     target = config.split('-', 2)[2]
     distro = LINUX_SCHROOT_SETUP.get(target)
     allenv = get_chroot_list()
+    #code.interact(local=dict(globals(), **locals()))
 
     for arch in distro['build_arch']:
         alias    = distro.get('chroot_alias', '%s-%s' % (target, arch))
@@ -753,6 +775,7 @@ def build_setup_schroot(config, basedir):
         pkg_list = '%s %s' % (distro['build_packages'], distro.get('runtime_packages', ''))
         chroot   = (arch == 'i386' and 'linux32 chroot' or 'chroot')
 
+            message('message made by dan aka D$')
         if alias in allenv:
             message('******************* %s (skipped)\n' % alias)
             continue
